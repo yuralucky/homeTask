@@ -1,11 +1,8 @@
 <?php
+namespace Hillel\MyApplication;
 
-namespace MyApplication;
 
-use Data\DataIsoCode;
 use InvalidArgumentException;
-
-require 'autoloader.php';
 
 class Currency
 {
@@ -13,12 +10,12 @@ class Currency
      * @var $isoCode
      */
     private $isoCode;
-    private array $allIsoCode = [];
+    public array $allIsoCode = [];
 
     public function __construct($isoCode)
     {
-        $this->setIsoCode($isoCode);
         $this->allIsoCode = DataIsoCode::getAllCode();
+        $this->setIsoCode($isoCode);
     }
 
     /**
@@ -27,6 +24,11 @@ class Currency
     public function getIsoCode()
     {
         return $this->isoCode;
+    }
+
+    public function getAllIsoCode()
+    {
+        return $this->allIsoCode;
     }
 
     /**
@@ -44,18 +46,19 @@ class Currency
      */
     private function checkIsoCode($isoCode)
     {
-        if (!$isoCode && !array_key_exists($isoCode, $this->allIsoCode)) {
+        if (!array_key_exists($isoCode, $this->getAllIsoCode())) {
             throw new InvalidArgumentException('Not found this isoCode');
         }
         return true;
     }
 
     /**
-     * @param Currency $currency
+     * @param Currency $currency1
+     * @param Currency $currency2
      * @return bool
      */
-    public function equals(Currency $currency)
+    public function equals(Currency $currency1,Currency $currency2)
     {
-        return $this == $currency;
+        return $currency1 == $currency2;
     }
 }

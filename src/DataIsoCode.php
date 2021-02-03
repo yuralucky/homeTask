@@ -1,12 +1,9 @@
 <?php
 
-
-namespace Data;
-
+namespace Hillel\MyApplication;
 
 class DataIsoCode
 {
-    private array $isoCode;
 
     public static function getAllCode()
     {
